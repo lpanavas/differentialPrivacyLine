@@ -137,3 +137,14 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+.epsilon-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.epsilon-display span {
+  margin: 0 5px;
+}

@@ -146,10 +146,11 @@ function App() {
             {errorForSelectedEpsilon.toFixed(2)}.
           </div>
           <div className="app-section">
-            <label>
-              Epsilon Range: {sliderValues[0].toFixed(2)} -{" "}
-              {sliderValues[2].toFixed(2)}
-            </label>
+            <div className="epsilon-display">
+              <span>Epsilon Range: {sliderValues[0].toFixed(2)}</span>
+              <span>Selected Epsilon: {sliderValues[1].toFixed(2)}</span>
+              <span>{sliderValues[2].toFixed(2)}</span>
+            </div>
             <Slider
               range
               min={MIN_EPSILON}
