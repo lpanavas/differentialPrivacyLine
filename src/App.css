@@ -1,0 +1,139 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  color: #333; /* darker color for enhanced readability */
+  background-color: #f7f9fc; /* light grayish-blue, easier on the eyes */
+  line-height: 1.5; /* better spacing between lines for readability */
+}
+
+.app-container {
+  width: 80%; /* make it a bit wider */
+  margin: 0 auto;
+  padding: 50px 0; /* padding on the top and bottom */
+  background-color: #fff; /* white background */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* subtle shadow to lift the container */
+  border-radius: 8px; /* rounding the corners */
+}
+
+.layout-container {
+  display: flex;
+  /* justify-content: space-between; */
+  margin-bottom: 30px; /* spacing between the layout and scenario */
+}
+
+/* Chart styles */
+.chart-container {
+  flex: 1;
+  margin-right: 20px; /* space between chart and parameters */
+}
+
+/* Parameters in two columns */
+.parameters-container {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* ensure the parameters move to the next line if they don't fit */
+}
+
+.app-section {
+  margin-bottom: 0px; /* more spacing */
+  padding: 15px; /* inner padding for every section */
+}
+
+.app-section {
+  width: 48%; /* roughly half width for two columns */
+  /* ... other styles */
+}
+
+/* Scenario section */
+.scenario-section {
+  width: 100%;
+}
+
+/* Button Styles */
+button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3; /* slightly darker blue on hover */
+}
+
+/* Scenario section hidden by default */
+.scenario-content {
+  display: none;
+}
+
+.scenario-selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.scenario-dropdown {
+  flex: 1;
+}
+
+button {
+  padding: 8px 15px;
+  margin-left: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
