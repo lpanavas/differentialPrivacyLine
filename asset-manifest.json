@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/differentialPrivacyLine/static/css/main.4484a09b.css",
+    "main.js": "/differentialPrivacyLine/static/js/main.4d17e1a3.js",
+    "static/js/787.0c49d5f9.chunk.js": "/differentialPrivacyLine/static/js/787.0c49d5f9.chunk.js",
+    "index.html": "/differentialPrivacyLine/index.html",
+    "main.4484a09b.css.map": "/differentialPrivacyLine/static/css/main.4484a09b.css.map",
+    "main.4d17e1a3.js.map": "/differentialPrivacyLine/static/js/main.4d17e1a3.js.map",
+    "787.0c49d5f9.chunk.js.map": "/differentialPrivacyLine/static/js/787.0c49d5f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4484a09b.css",
+    "static/js/main.4d17e1a3.js"
+  ]
+}
