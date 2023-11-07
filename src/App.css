@@ -54,8 +54,13 @@ body {
   border-radius: 8px; /* rounding the corners */
 }
 
+.top-row {
+  display: flex;
+  flex-direction: row;
+}
 .layout-container {
   display: flex;
+  flex-direction: column;
   /* justify-content: space-between; */
   margin-bottom: 30px; /* spacing between the layout and scenario */
 }
@@ -63,25 +68,29 @@ body {
 /* Chart styles */
 .chart-container {
   flex: 1;
-  margin-right: 20px; /* space between chart and parameters */
+  margin-right: 5px;
+  margin-left: 5px; /* space between chart and parameters */
+  max-width: 400px;
 }
 
+.error-chart-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+
+  margin-left: 20px;
+}
 /* Parameters in two columns */
 .parameters-container {
-  flex: 1;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap; /* ensure the parameters move to the next line if they don't fit */
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-right: 40px;
+  align-items: flex-end;
 }
 
 .app-section {
   margin-bottom: 0px; /* more spacing */
   padding: 15px; /* inner padding for every section */
-}
-
-.app-section {
-  width: 48%; /* roughly half width for two columns */
-  /* ... other styles */
 }
 
 /* Scenario section */
@@ -135,7 +144,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #727272;
 }
 
 .epsilon-display {
@@ -147,4 +156,221 @@ button:hover {
 
 .epsilon-display span {
   margin: 0 5px;
+}
+
+/* Path: src/components/Chart.js */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard-header {
+  background-color: #f8f9fa; /* A light grey color for a more pleasant look */
+  color: black;
+  padding: 10px;
+  text-align: center;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  height: calc(100% - 40px);
+}
+
+.side-panel {
+  position: relative; /* Positioning context for the close button */
+
+  background-color: #f4f4f4;
+  width: 200px;
+  min-width: 200px;
+  transition: width 0.3s;
+  overflow: hidden;
+}
+
+.side-panel.expanded {
+  width: 400px; /* Expanded width */
+  min-width: 350px;
+}
+
+.side-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.side-panel li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.panel-content {
+  padding: 10px;
+}
+
+.panel-content .content {
+  margin-top: 20px;
+}
+
+.scrollable-content {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+.main-content.shrink {
+  margin-left: 5px; /* Shrink the main content when side panel is expanded */
+}
+
+/* Main background colors */
+.bg-light-theme {
+  background-color: #f9fafb; /* bg-gray-50 */
+}
+.bg-dark-theme {
+  background-color: #1a202c; /* dark:bg-gray-800 */
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem; /* px-6 py-4 */
+  border-bottom: 1px solid #e2e8f0; /* border-gray-200 */
+  background-color: #ffffff; /* bg-white */
+}
+
+.header-dark {
+  background-color: #2d3748; /* dark:bg-gray-900 */
+  border-color: #4a5568; /* dark:border-gray-700 */
+}
+
+.header-title {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  color: #2d3748; /* text-gray-800 */
+}
+
+.header-title-dark {
+  color: #f7fafc; /* dark:text-gray-100 */
+}
+
+/* Icon styles */
+.icon {
+  width: 1.5rem; /* w-6 */
+  height: 1.5rem; /* h-6 */
+  color: #a0aec0; /* text-gray-500 */
+}
+
+.icon-dark {
+  color: #cbd5e0; /* dark:text-gray-400 */
+}
+
+/* User avatar styles */
+.avatar {
+  border-radius: 9999px; /* rounded-full */
+  width: 40px; /* w-40 */
+  height: 40px; /* h-40 */
+  object-fit: cover;
+  aspect-ratio: 1; /* aspectRatio: "40/40" */
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 16rem; /* w-64 */
+  background-color: #edf2f7; /* bg-gray-200 */
+  overflow: auto;
+}
+
+.sidebar-dark {
+  background-color: #1a202c; /* dark:bg-gray-800 */
+}
+
+.nav-link {
+  display: block;
+  padding: 0.5rem 1.5rem; /* px-6 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+}
+
+.nav-link:hover {
+  background-color: #e2e8f0; /* hover:bg-gray-300 */
+}
+
+.nav-link-dark:hover {
+  background-color: #4a5568; /* dark:hover:bg-gray-700 */
+}
+
+/* Main content styles */
+.main-content {
+  flex-grow: 1;
+  padding: 1.5rem; /* p-6 */
+  background-color: #ffffff; /* bg-white */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  border-radius: 0.5rem; /* rounded-lg */
+  margin: 1rem; /* m-4 */
+}
+
+.main-content-dark {
+  background-color: #2d3748; /* dark:bg-gray-900 */
+}
+
+.main-title {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  color: #2d3748; /* text-gray-800 */
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.main-title-dark {
+  color: #f7fafc; /* dark:text-gray-100 */
+}
+
+.main-text {
+  color: #718096; /* text-gray-600 */
+}
+
+.main-text-dark {
+  color: #a0aec0; /* dark:text-gray-400 */
+}
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+  color: #333; /* Adjust the color as needed */
+}
+
+.side-panel li,
+.panel-content {
+  padding: 0.5rem 1rem; /* Adjust padding as needed */
+  list-style-type: none; /* Remove bullet points */
+}
+
+.side-panel-header {
+  padding: 1rem 1.5rem; /* py-4 px-6 */
+  border-bottom: 1px solid #e2e8f0; /* border-gray-300 */
+}
+
+.panel-list-item {
+  padding: 0.5rem 1.5rem; /* py-2 px-6 */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.panel-list-item:hover {
+  background-color: #e2e8f0; /* hover:bg-gray-300 */
+}
+
+.question-mark-icon {
+  margin-left: 5px;
+  cursor: pointer;
 }
