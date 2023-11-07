@@ -286,20 +286,3 @@ function App() {
 }
 
 export default App;
-// Gaussian error data
-// const dataGaussian = Array.from({ length: 100 }, (_, index) => {
-//   const computedEpsilon =
-//     minEpsilon + (maxEpsilon - minEpsilon) * (index / 99);
-//   const sigma =
-//     (sensitivity * Math.sqrt(2 * Math.log(1.25 / delta_gaussian) * k)) / // <- Adjusted for sqrt(k)
-//     computedEpsilon;
-//   const error = sigma * 1.96; // 95% confidence interval for Gaussian noise
-//   console.log(
-//     `Epsilon: ${computedEpsilon}, Sigma: ${sigma}, Sensitivity: ${sensitivity}, Delta: ${delta_gaussian}`
-//   ); // Debugging line
-
-//   return {
-//     epsilon: computedEpsilon,
-//     error: error,
-//   };
-// });
