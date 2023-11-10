@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as d3 from "d3";
 
 function LineChart({
@@ -14,6 +14,7 @@ function LineChart({
   sensitivity,
 }) {
   const svgRef = useRef(null);
+  const [errorMode, setErrorMode] = useState("predicted"); // State to track error mode
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
@@ -37,9 +38,6 @@ function LineChart({
         (sensitivity * Math.sqrt(2 * Math.log(1.25 / delta_gaussian) * k)) / // <- Adjusted for sqrt(k)
         computedEpsilon;
       const error = sigma * 1.96; // 95% confidence interval for Gaussian noise
-      console.log(
-        `Epsilon: ${computedEpsilon}, Sigma: ${sigma}, Sensitivity: ${sensitivity}, Delta: ${delta_gaussian}`
-      ); // Debugging line
 
       return {
         epsilon: computedEpsilon,
@@ -51,12 +49,26 @@ function LineChart({
       .scaleLinear()
       .domain([minEpsilon, maxEpsilon])
       .range([60, width - 10]);
-    const yScale = d3
+
+    // Common yScale for plotting
+    let yScale = d3
       .scaleLinear()
-      // .domain([0, d3.max(dataLaplace, (d) => d.error)])
       .domain([0, trueValue])
       .range([height - 50, 10]);
 
+    let yAxisFormat;
+    let yAxisLabel =
+      errorMode === "predicted"
+        ? "Predicted Error (95% confidence)"
+        : "Relative Error (%)";
+
+    yAxisFormat =
+      errorMode === "predicted"
+        ? (d) => d
+        : (d) => `${Math.round((d / trueValue) * 100)}%`;
+
+    // Remove the existing y-axis and y-axis label
+    svg.selectAll(".y-axis, .y-axis-label").remove();
     const line = d3
       .line()
       .x((d) => xScale(d.epsilon))
@@ -69,10 +81,6 @@ function LineChart({
       .append("g")
       .attr("transform", `translate(0,${height - 50})`)
       .call(d3.axisBottom(xScale).ticks(10));
-    svg
-      .append("g")
-      .attr("transform", "translate(60,0)")
-      .call(d3.axisLeft(yScale));
 
     // Laplace error line
     svg
@@ -157,14 +165,7 @@ function LineChart({
       .style("font-size", "15px")
       .attr("alignment-baseline", "middle");
     // Axis labels
-    svg
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 5)
-      .attr("x", -height / 2)
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("Predicted Error (95% confidence)");
+
     svg
       .append("text")
       .attr("x", width / 2)
@@ -172,6 +173,22 @@ function LineChart({
       .attr("dy", "-0.5em")
       .style("text-anchor", "middle")
       .text("Epsilon (ε)");
+    svg
+      .append("g")
+      .attr("class", "y-axis")
+      .attr("transform", "translate(59,0)")
+      .call(d3.axisLeft(yScale).tickFormat(yAxisFormat));
+
+    // Add the y-axis label
+    svg
+      .append("text")
+      .attr("class", "y-axis-label")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 5)
+      .attr("x", -height / 2)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text(yAxisLabel);
   }, [
     minEpsilon,
     maxEpsilon,
@@ -183,9 +200,20 @@ function LineChart({
     k,
     sensitivity,
     setSelectedEpsilon,
-  ]);
+    errorMode,
+  ]); // Add errorMode as a dependency
 
-  return <svg ref={svgRef} width={width} height={height}></svg>;
+  return (
+    <>
+      <svg ref={svgRef} width={width} height={height}></svg>
+      <div>
+        <button onClick={() => setErrorMode("predicted")}>
+          Predicted Error
+        </button>
+        <button onClick={() => setErrorMode("relative")}>Relative Error</button>
+      </div>
+    </>
+  );
 }
 
 export default LineChart;

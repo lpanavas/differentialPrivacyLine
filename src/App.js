@@ -54,6 +54,8 @@ function App() {
   const [datasetBounds, setDatasetBounds] = useState({ low: 0, high: 100 });
   const [datasetSize, setDatasetSize] = useState(100);
   const [selectedEpsilon, setSelectedEpsilon] = useState(1);
+  const [activeTab, setActiveTab] = useState("simulation"); // New state for active tab
+
   const delta = 0.05;
   const delta_gaussian = 0.001;
   const k = queryType === "Histogram" ? numBins : 1;
@@ -80,6 +82,10 @@ function App() {
   const handleClosePanel = () => {
     setActivePanel(null); // Close the active panel by setting it to null
   };
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
     <div className="dashboard">
       <header className="dashboard-header">Dashboard Header</header>
@@ -123,115 +129,141 @@ function App() {
           <div className="layout-container">
             <div className="top-row">
               <div className="parameters-container">
-                <div className="app-section">
-                  <label>
-                    Select query type:
-                    <select
-                      value={queryType}
-                      onChange={(e) => setQueryType(e.target.value)}
-                    >
-                      <option value="Count">Count</option>
-                      <option value="Sum">Sum</option>
-                      <option value="Mean">Mean</option>
-                      <option value="Histogram">Histogram</option>
-                    </select>
-                  </label>
+                <div className="tab-buttons">
+                  <button
+                    className={`tab-button ${
+                      activeTab === "simulation" ? "active" : ""
+                    }`}
+                    onClick={() => handleTabChange("simulation")}
+                  >
+                    Simulation
+                  </button>
+                  <button
+                    className={`tab-button ${
+                      activeTab === "datasets" ? "active" : ""
+                    }`}
+                    onClick={() => handleTabChange("datasets")}
+                  >
+                    Datasets
+                  </button>
                 </div>
-                <div className="app-section">
-                  <label>
-                    True value of query:
-                    <input
-                      type="number"
-                      value={trueValue}
-                      onChange={(e) => setTrueValue(parseInt(e.target.value))}
-                    />
-                  </label>
-                </div>
-                <div className="app-section">
-                  <label>
-                    What is the largest effect a person could have on the
-                    statistical release:
-                    <input
-                      type="number"
-                      value={releaseQueries}
-                      onChange={(e) =>
-                        setReleaseQueries(parseInt(e.target.value))
-                      }
-                    />
-                    {/* Font Awesome question mark icon to open the sensitivity panel */}
-                    <FontAwesomeIcon
-                      icon={faQuestionCircle}
-                      className="question-mark-icon"
-                      onClick={() => handlePanelClick("sensitivity")}
-                    />
-                  </label>
-                </div>
-                {queryType === "Histogram" && (
-                  <div className="app-section">
-                    <label>
-                      Number of bins:
-                      <input
-                        type="number"
-                        value={numBins}
-                        onChange={(e) => setNumBins(parseInt(e.target.value))}
-                      />
-                    </label>
-                  </div>
-                )}
-                {(queryType === "Sum" || queryType === "Mean") && (
-                  <div className="app-section">
-                    <label>
-                      Estimated Low Value of Dataset:
-                      <input
-                        type="number"
-                        value={datasetBounds.low}
-                        onChange={(e) =>
-                          setDatasetBounds((prev) => ({
-                            ...prev,
-                            low: parseInt(e.target.value),
-                          }))
-                        }
-                      />
-                    </label>
-                    <br />
-                    <label>
-                      Estimated High Value of Dataset:
-                      <input
-                        type="number"
-                        value={datasetBounds.high}
-                        onChange={(e) =>
-                          setDatasetBounds((prev) => ({
-                            ...prev,
-                            high: parseInt(e.target.value),
-                          }))
-                        }
-                      />
-                    </label>
-                  </div>
-                )}
-                {queryType === "Mean" && (
-                  <div className="app-section">
-                    <label>
-                      Dataset Size:
-                      <br />
-                      <input
-                        type="number"
-                        value={datasetSize}
-                        onChange={(e) =>
-                          setDatasetSize(Math.max(1, parseInt(e.target.value)))
-                        }
-                      />
-                    </label>
-                  </div>
-                )}
+                {activeTab === "simulation" ? (
+                  <div className="simulation-content">
+                    <div className="app-section">
+                      <label>
+                        Select query type:
+                        <select
+                          value={queryType}
+                          onChange={(e) => setQueryType(e.target.value)}
+                        >
+                          <option value="Count">Count</option>
+                          <option value="Sum">Sum</option>
+                          <option value="Mean">Mean</option>
+                          <option value="Histogram">Histogram</option>
+                        </select>
+                      </label>
+                    </div>
+                    <div className="app-section">
+                      <label>
+                        True value of query:
+                        <input
+                          type="number"
+                          value={trueValue}
+                          onChange={(e) =>
+                            setTrueValue(parseInt(e.target.value))
+                          }
+                        />
+                      </label>
+                    </div>
+                    <div className="app-section">
+                      <label>
+                        What is the largest effect a person could have on the
+                        statistical release:
+                        <input
+                          type="number"
+                          value={releaseQueries}
+                          onChange={(e) =>
+                            setReleaseQueries(parseInt(e.target.value))
+                          }
+                        />
+                        {/* Font Awesome question mark icon to open the sensitivity panel */}
+                        <FontAwesomeIcon
+                          icon={faQuestionCircle}
+                          className="question-mark-icon"
+                          onClick={() => handlePanelClick("sensitivity")}
+                        />
+                      </label>
+                    </div>
+                    {queryType === "Histogram" && (
+                      <div className="app-section">
+                        <label>
+                          Number of bins:
+                          <input
+                            type="number"
+                            value={numBins}
+                            onChange={(e) =>
+                              setNumBins(parseInt(e.target.value))
+                            }
+                          />
+                        </label>
+                      </div>
+                    )}
+                    {(queryType === "Sum" || queryType === "Mean") && (
+                      <div className="app-section">
+                        <label>
+                          Estimated Low Value of Dataset:
+                          <input
+                            type="number"
+                            value={datasetBounds.low}
+                            onChange={(e) =>
+                              setDatasetBounds((prev) => ({
+                                ...prev,
+                                low: parseInt(e.target.value),
+                              }))
+                            }
+                          />
+                        </label>
+                        <br />
+                        <label>
+                          Estimated High Value of Dataset:
+                          <input
+                            type="number"
+                            value={datasetBounds.high}
+                            onChange={(e) =>
+                              setDatasetBounds((prev) => ({
+                                ...prev,
+                                high: parseInt(e.target.value),
+                              }))
+                            }
+                          />
+                        </label>
+                      </div>
+                    )}
+                    {queryType === "Mean" && (
+                      <div className="app-section">
+                        <label>
+                          Dataset Size:
+                          <br />
+                          <input
+                            type="number"
+                            value={datasetSize}
+                            onChange={(e) =>
+                              setDatasetSize(
+                                Math.max(1, parseInt(e.target.value))
+                              )
+                            }
+                          />
+                        </label>
+                      </div>
+                    )}
 
-                <div className="app-section">
-                  {/* <div className="epsilon-display">
+                    <div className="app-section">
+                      {/* <div className="epsilon-display">
                     <span>Epsilon Range: {sliderValues[0].toFixed(2)}</span>
                     <span>Selected Epsilon: {sliderValues[1].toFixed(2)}</span>
                     <span>{sliderValues[2].toFixed(2)}</span>
                   </div> */}
-                  {/* <Slider
+                      {/* <Slider
                     range
                     min={MIN_EPSILON}
                     max={MAX_EPSILON}
@@ -240,7 +272,13 @@ function App() {
                     onChange={(values) => setSliderValues(values)}
                     allowCross={false}
                   /> */}
-                </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="datasets-content">
+                    {/* Datasets related inputs and components */}
+                  </div>
+                )}
               </div>
               <div className="chart-container">
                 <LineChart
@@ -269,7 +307,7 @@ function App() {
               </div>
               <div className="error-chart-container">
                 <LaplaceBarChart
-                  width={50}
+                  width={150}
                   height={500}
                   trueValue={trueValue}
                   releaseQueries={releaseQueries}

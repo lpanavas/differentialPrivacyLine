@@ -75,10 +75,10 @@ body {
 
 .error-chart-container {
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   flex-wrap: wrap;
-
-  margin-left: 20px;
+  min-width: 100px;
+  /* margin-left: 20px; */
 }
 /* Parameters in two columns */
 .parameters-container {
@@ -99,18 +99,26 @@ body {
 }
 
 /* Button Styles */
+/* Add this CSS to your stylesheet */
+
 button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  background-color: #f0f0f0; /* Light grey background */
+  color: #333; /* Darker text color for contrast */
+  border: 1px solid #ccc; /* Light grey border */
+  padding: 8px 16px; /* Padding around the text */
+  text-align: center; /* Center the text inside the button */
+  text-decoration: none; /* Remove underlines from text */
+  display: inline-block; /* Allow buttons to sit side by side */
+  font-size: 16px; /* Set font size */
+  margin: 4px 2px; /* Spacing between buttons */
+  cursor: pointer; /* Change mouse cursor to pointer */
+  transition-duration: 0.4s; /* Smooth transition for hover effect */
+  border-radius: 5px; /* Rounded corners */
 }
 
 button:hover {
-  background-color: #0056b3; /* slightly darker blue on hover */
+  background-color: #ddd; /* Change background on hover */
+  color: black; /* Change text color on hover */
 }
 
 /* Scenario section hidden by default */
@@ -130,21 +138,6 @@ button:hover {
 
 .scenario-dropdown {
   flex: 1;
-}
-
-button {
-  padding: 8px 15px;
-  margin-left: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-button:hover {
-  background-color: #727272;
 }
 
 .epsilon-display {
@@ -373,4 +366,63 @@ button:hover {
 .question-mark-icon {
   margin-left: 5px;
   cursor: pointer;
+}
+
+/* Styling for the tab buttons */
+/* Styling for the tab buttons */
+.tab-buttons {
+  display: flex;
+  margin-bottom: 10px; /* Space below the tab buttons */
+}
+
+.tab-button {
+  flex: 1; /* Each tab button takes equal width */
+  padding: 10px; /* Padding inside the buttons */
+  cursor: pointer; /* Cursor changes to pointer to indicate clickable area */
+  text-align: center; /* Center-align text inside buttons */
+  font-weight: bold; /* Bold font for button text */
+  border: 1px solid #ccc; /* Light grey border for the buttons */
+  background-color: #e0e0e0; /* Light grey background color for buttons */
+  color: #333; /* Dark text for better contrast */
+  border-radius: 5px; /* Slightly rounded corners for buttons */
+}
+
+/* Styling for the active tab button */
+.tab-button.active {
+  background-color: #ffffff; /* White background color for active tab */
+  border-bottom-color: transparent; /* Transparent bottom border for active tab */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Shadow for active tab */
+  color: #000; /* Even darker text for active tab */
+}
+
+/* Hover effect for tab buttons */
+.tab-button:hover {
+  background-color: #d4d4d4; /* Slightly darker background on hover */
+  color: #222; /* Slightly darker text on hover */
+}
+
+/* Styling for the tab content areas */
+.simulation-content,
+.datasets-content {
+  padding: 15px; /* Padding inside the content areas */
+  border: 1px solid #ccc; /* Light grey border around the content areas */
+  border-top: none; /* Remove top border to blend with the active tab */
+  background-color: #fff; /* White background color for content areas */
+  border-radius: 5px; /* Rounded corners for the content area */
+  color: #333; /* Dark text for better readability */
+}
+
+/* Additional styling for specific elements in content areas */
+.app-section label {
+  display: block; /* Make each label block-level for better layout */
+  margin-bottom: 5px; /* Margin below each label */
+}
+
+.app-section input,
+.app-section select {
+  width: 100%; /* Full width for input and select elements */
+  padding: 5px; /* Padding inside input and select elements */
+  margin-top: 5px; /* Margin above input and select elements */
+  border: 1px solid #ccc; /* Border for input and select elements */
+  border-radius: 3px; /* Slightly rounded corners for inputs and selects */
 }
